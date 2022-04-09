@@ -1,18 +1,48 @@
 using System;
+using Environment;
 using Player;
-using UnityEngine;
+using UI;
 
-public class GameController : MonoBehaviour
+namespace Game
 {
-    private static GameController _instance;
-    public static GameController currentGame => _instance ?? (_instance = new GameController());
-
-    public PlayerData PlayerData;
-    public event Action OnDataChanged;
-    
-
-    public void StartGame()
+    public class GameController
     {
-        Debug.Log("Start Game");
+        private GameController _instance;
+        public GameController game => _instance;
+
+
+        private event Action GameStarted;
+        private event Action GameFinished;
+        
+
+        private PlayerController _playerController;
+        private UIController _uiController;
+        private EnvironmentController _environmentController;
+        
+        public GameController(PlayerController player, UIController ui, EnvironmentController env)
+        {
+            _playerController = player;
+            _uiController = ui;
+            _environmentController = env;
+            
+            InitAllControllers();
+        }
+
+        private void InitAllControllers()
+        {
+            _instance = this;
+
+            _uiController.Init();
+            _uiController.startWindow.ButtonStart += OnGameStart;
+
+            GameStarted += _uiController.OnGameStarted;
+            GameStarted += _playerController.OnGameStarted;
+        }
+        
+
+        private void OnGameStart()
+        {
+            GameStarted?.Invoke();
+        }
     }
 }
