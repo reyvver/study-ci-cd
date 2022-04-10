@@ -3,21 +3,30 @@ using UnityEngine;
 
 namespace Environment
 {
+    [RequireComponent(typeof(LevelsManager))]
     public class EnvironmentController : MonoBehaviour, IController
     {
+        private LevelsManager _levelsManager;
+        
         public void Init()
         {
-            
+            _levelsManager = GetComponent<LevelsManager>();
+            _levelsManager.Init();
         }
 
         public void OnGameStarted()
         {
-            throw new System.NotImplementedException();
+            _levelsManager.StartFirstLevel();
         }
 
         public void OnGameFinished()
         {
-            throw new System.NotImplementedException();
+            _levelsManager.StopMoving();
+        }
+
+        public void OnGameRestart()
+        {
+            _levelsManager.Restart();
         }
     }
 }

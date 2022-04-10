@@ -1,13 +1,13 @@
 using System;
 using UnityEngine;
 
-namespace UI
+namespace UI.Windows
 {
-    public class StartWindowUI : MonoBehaviour, IWindow
+    public class EndGameWindowUI : MonoBehaviour, IWindow
     {
         [SerializeField] private CanvasGroup canvas;
-        public event Action ButtonStart;
-        
+        public event Action ButtonRestart;
+
         public void HideOrShow(bool show)
         {
             canvas.alpha = show? 1 : 0;
@@ -15,10 +15,9 @@ namespace UI
             canvas.blocksRaycasts = show;
         }
 
-        public void OnButtonStartClick()
+        public void OnRestartButtonClick()
         {
-            ButtonStart?.Invoke();
+            ButtonRestart?.Invoke();
         }
-        
     }
 }

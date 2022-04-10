@@ -7,13 +7,13 @@ namespace Game
 {
     public class GameInitializer : MonoBehaviour
     {
-        [SerializeField] private PlayerController PlayerController;
-        [SerializeField] private UIController _uiController;
-        [SerializeField] private EnvironmentController _environmentController;
+        [SerializeField] private PlayerController playerController;
+        [SerializeField] private UIController uiController;
+        [SerializeField] private EnvironmentController environmentController;
 
         private void Awake()
         {
-            GameController gameController = new GameController(PlayerController, _uiController, _environmentController);
+            GameController gameController = new GameController(playerController, uiController, environmentController);
         }
     }
 }

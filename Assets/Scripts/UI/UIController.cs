@@ -1,4 +1,5 @@
 using Core;
+using UI.Windows;
 using UnityEngine;
 
 namespace UI
@@ -9,36 +10,41 @@ namespace UI
         public PlayWindowUI playWindow;
         public EndGameWindowUI endGameWindow;
 
-        private IWindow[] windows;
+        private IWindow[] _windows;
 
         public void Init()
         {
             IWindow[] allWindows = {startWindow, playWindow, endGameWindow};
-            windows = allWindows;
+            _windows = allWindows;
             
             HideAllWindows();
+            startWindow.HideOrShow(true);
         }
         
         private void HideAllWindows()
         {
-            foreach (var window in windows)
+            foreach (var window in _windows)
             {
                 window.HideOrShow(false);
             }
-            
-            startWindow.HideOrShow(true);
         }
 
         public void OnGameStarted()
         {
-            startWindow.HideOrShow(false);
+            HideAllWindows();
             playWindow.HideOrShow(true);
         }
-
+        
         public void OnGameFinished()
         {
+            HideAllWindows();
             endGameWindow.HideOrShow(true);
-            playWindow.HideOrShow(false);
+        }
+
+        public void OnGameRestart()
+        {
+            HideAllWindows();
+            startWindow.HideOrShow(true);
         }
     }
 }

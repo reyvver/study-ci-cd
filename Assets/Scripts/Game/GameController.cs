@@ -7,17 +7,13 @@ namespace Game
 {
     public class GameController
     {
-        private GameController _instance;
-        public GameController game => _instance;
-
-
         private event Action GameStarted;
         private event Action GameFinished;
+        private event Action GameRestarted;
         
-
-        private PlayerController _playerController;
-        private UIController _uiController;
-        private EnvironmentController _environmentController;
+        private readonly PlayerController _playerController;
+        private readonly UIController _uiController;
+        private readonly EnvironmentController _environmentController;
         
         public GameController(PlayerController player, UIController ui, EnvironmentController env)
         {
@@ -26,23 +22,69 @@ namespace Game
             _environmentController = env;
             
             InitAllControllers();
+            SubscribeToEvents();
+        }
+
+        ~GameController()
+        {
+            UnsubscribeFromEvents();
         }
 
         private void InitAllControllers()
         {
-            _instance = this;
-
             _uiController.Init();
             _uiController.startWindow.ButtonStart += OnGameStart;
+            _uiController.endGameWindow.ButtonRestart += OnGameRestart;
+            
+            _playerController.Init();
+            _playerController.player.PlayerCollisionDetected += OnGameFinished;
+            
+            _environmentController.Init();
+        }
 
+        private void SubscribeToEvents()
+        {
             GameStarted += _uiController.OnGameStarted;
             GameStarted += _playerController.OnGameStarted;
+            GameStarted += _environmentController.OnGameStarted;
+
+            GameFinished += _uiController.OnGameFinished;
+            GameFinished += _playerController.OnGameFinished;
+            GameFinished += _environmentController.OnGameFinished;
+
+            GameRestarted += _uiController.OnGameRestart;
+            GameRestarted += _playerController.OnGameRestart;
+            GameRestarted += _environmentController.OnGameRestart;
         }
-        
+
+        private void UnsubscribeFromEvents()
+        {
+            GameStarted -= _uiController.OnGameStarted;
+            GameStarted -= _playerController.OnGameStarted;
+            GameStarted -= _environmentController.OnGameStarted;
+
+            GameFinished -= _uiController.OnGameFinished;
+            GameFinished -= _playerController.OnGameFinished;
+            GameFinished -= _environmentController.OnGameFinished;
+
+            GameRestarted -= _uiController.OnGameRestart;
+            GameRestarted -= _playerController.OnGameRestart;
+            GameRestarted -= _environmentController.OnGameRestart;
+        }
 
         private void OnGameStart()
         {
             GameStarted?.Invoke();
+        }
+
+        private void OnGameRestart()
+        {
+            GameRestarted?.Invoke();
+        }
+
+        private void OnGameFinished()
+        {
+            GameFinished?.Invoke();
         }
     }
 }

@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 
-namespace UI
+namespace UI.Windows
 {
-    public class EndGameWindowUI : MonoBehaviour, IWindow
+    public class StartWindowUI : MonoBehaviour, IWindow
     {
         [SerializeField] private CanvasGroup canvas;
+        public event Action ButtonStart;
         
         public void HideOrShow(bool show)
         {
@@ -12,5 +14,11 @@ namespace UI
             canvas.interactable = show;
             canvas.blocksRaycasts = show;
         }
+
+        public void OnButtonStartClick()
+        {
+            ButtonStart?.Invoke();
+        }
+        
     }
 }

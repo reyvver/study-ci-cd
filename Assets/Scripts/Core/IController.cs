@@ -4,5 +4,6 @@ namespace Core
     {
         public void OnGameStarted();
         public void OnGameFinished();
+        public void OnGameRestart();
     }
 }
