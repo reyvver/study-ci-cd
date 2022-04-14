@@ -38,7 +38,9 @@ namespace Game
             
             _playerController.Init();
             _playerController.player.PlayerCollisionDetected += OnGameFinished;
-            
+            _playerController.player.PlayerCountUpdated += _uiController.playWindow.UpdateCount;
+            _playerController.player.PlayerMaxCountUpdated += _uiController.startWindow.UpdateCount;
+
             _environmentController.Init();
         }
 

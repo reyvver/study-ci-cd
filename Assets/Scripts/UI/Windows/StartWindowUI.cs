@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI.Windows
 {
     public class StartWindowUI : MonoBehaviour, IWindow
     {
         [SerializeField] private CanvasGroup canvas;
+        [SerializeField] private Text textCount;
+
         public event Action ButtonStart;
         
         public void HideOrShow(bool show)
@@ -20,5 +23,9 @@ namespace UI.Windows
             ButtonStart?.Invoke();
         }
         
+        public void UpdateCount(int count)
+        {
+            textCount.text = $"Max count: {count}";
+        }
     }
 }
