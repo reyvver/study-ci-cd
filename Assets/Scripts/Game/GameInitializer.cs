@@ -1,3 +1,4 @@
+using Core;
 using Environment;
 using Player;
 using UI;
@@ -10,9 +11,12 @@ namespace Game
         [SerializeField] private PlayerController playerController;
         [SerializeField] private UIController uiController;
         [SerializeField] private EnvironmentController environmentController;
+        [Space] 
+        [SerializeField] private Camera mainCamera;
 
         private void Awake()
         {
+            GameStats.cam = mainCamera;
             GameController gameController = new GameController(playerController, uiController, environmentController);
         }
     }

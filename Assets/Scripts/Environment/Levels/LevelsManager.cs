@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Environment
+namespace Environment.Levels
 {
     public class LevelsManager : MonoBehaviour
     {
@@ -56,7 +56,6 @@ namespace Environment
         {
             if (_currentLevel == null) return;
             
-            _currentLevel.StartMoving();
             _currentLevel.LevelFinished += OnLevelStopped;
         }
 
@@ -64,7 +63,6 @@ namespace Environment
         {
             if (_currentLevel == null) return;
 
-            _currentLevel.StopMoving();
             _currentLevel.LevelFinished -= OnLevelStopped;
         }
 
@@ -72,7 +70,7 @@ namespace Environment
         {
             foreach (var level in _levels)
             {
-                level.SetAtStartPosition();
+                level.ResetAfterMovement();
             }
 
             _currentLevel = null;
@@ -80,7 +78,7 @@ namespace Environment
 
         private void OnLevelStopped()
         {
-            _currentLevel.SetAtStartPosition();
+            _currentLevel.ResetAfterMovement();
             _currentLevel.LevelFinished -= OnLevelStopped;
             
             StartNewLevel();

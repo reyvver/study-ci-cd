@@ -1,4 +1,5 @@
 using Core;
+using Environment.Collectable;
 using UnityEngine;
 
 namespace Environment
@@ -6,18 +7,22 @@ namespace Environment
     public class Coin : MonoBehaviour, ICollectable
     {
         [SerializeField] private ParticleSystem onCollect;
+        [SerializeField] private CollectableValues.CollectableType collectableType = CollectableValues.CollectableType.Regular;
+        
         private SpriteRenderer _spriteRenderer;
-        private const int CoinValue = 50;
         
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            Value = CoinValue;
         }
 
         public int Value
         {
-            get; set;
+            get => CollectableValues.GetTypeValue(collectableType);
+            set
+            {
+                
+            }
         }
 
         public void Collect()

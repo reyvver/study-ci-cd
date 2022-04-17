@@ -346,6 +346,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2344599532718450005}
     m_Modifications:
+    - target: {fileID: 4106899147075626873, guid: 973ea0118997d450385e5d24a29e8f50, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4106899147075626873, guid: 973ea0118997d450385e5d24a29e8f50, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6641015
+      objectReference: {fileID: 0}
+    - target: {fileID: 4106899147075626873, guid: 973ea0118997d450385e5d24a29e8f50, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4106899147075626874, guid: 973ea0118997d450385e5d24a29e8f50, type: 3}
+      propertyPath: collectableType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4106899147075626884, guid: 973ea0118997d450385e5d24a29e8f50, type: 3}
       propertyPath: m_Name
       value: Collectable (1)

@@ -1,4 +1,5 @@
 using System;
+using Core;
 using Environment;
 using Player;
 using UI;
@@ -76,6 +77,7 @@ namespace Game
 
         private void OnGameStart()
         {
+            GameStats.IsMoving = true;
             GameStarted?.Invoke();
         }
 
@@ -86,6 +88,7 @@ namespace Game
 
         private void OnGameFinished()
         {
+            GameStats.IsMoving = false;
             GameFinished?.Invoke();
         }
     }
