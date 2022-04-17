@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Environment.Effects
 {
+    [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteScaler: MonoBehaviour
     {
         private Transform SpriteTransform => transform;
@@ -10,8 +11,11 @@ namespace Environment.Effects
         {
             float width = ScreenSize.GetScreenToWorldWidth;
             Vector3 currentLocalScale = SpriteTransform.localScale;
+
+            var spriteBounds = GetComponent<SpriteRenderer>().bounds.size.x;
             
-            SpriteTransform.localScale = new Vector3(Mathf.RoundToInt(width), currentLocalScale.y, currentLocalScale.z);
+            if (spriteBounds < width)
+                SpriteTransform.localScale = new Vector3(Mathf.RoundToInt(width), currentLocalScale.y, currentLocalScale.z);
         }
     }
 }

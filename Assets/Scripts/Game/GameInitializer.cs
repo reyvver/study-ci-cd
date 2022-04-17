@@ -16,7 +16,7 @@ namespace Game
 
         private void Awake()
         {
-            GameStats.cam = mainCamera;
+            GameStats.Cam = mainCamera;
             GameController gameController = new GameController(playerController, uiController, environmentController);
         }
     }

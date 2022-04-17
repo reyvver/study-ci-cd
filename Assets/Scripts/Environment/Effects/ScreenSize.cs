@@ -10,7 +10,7 @@ namespace Environment.Effects
             get
             {
                 Vector2 topRightCorner = new Vector2(1, 1);
-                Vector2 edgeVector = GameStats.cam.ViewportToWorldPoint(topRightCorner);
+                Vector2 edgeVector = GameStats.Cam.ViewportToWorldPoint(topRightCorner);
                 var width = edgeVector.x * 2;
                 return width;
             }

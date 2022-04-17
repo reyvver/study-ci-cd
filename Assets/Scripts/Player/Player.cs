@@ -68,6 +68,20 @@ namespace Player
             }
         }
 
+        private void OnCollisionEnter(Collision col)
+        {
+            CollisionDetected();
+        }
+
+        private void OnTriggerEnter(Collider col)
+        {
+            if (col.gameObject.TryGetComponent(out ICollectable collectable))
+            {
+                CollectableDetected(collectable);
+            }
+        }
+
+        
         private void CollisionDetected()
         {
             PlayerCollisionDetected?.Invoke();  

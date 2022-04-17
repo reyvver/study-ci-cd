@@ -83,12 +83,14 @@ namespace Game
 
         private void OnGameRestart()
         {
+            GameStats.IsGameStopped = false;
             GameRestarted?.Invoke();
         }
 
         private void OnGameFinished()
         {
             GameStats.IsMoving = false;
+            GameStats.IsGameStopped = true;
             GameFinished?.Invoke();
         }
     }

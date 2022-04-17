@@ -16,10 +16,11 @@ namespace Environment.Levels
         private Transform LevelTransform => gameObject.transform;
         private Vector3 _startPos;
         private Vector3 _endPos;
+        private bool _isLevelActive;
         
         private void Update()
         {
-            if (!GameStats.IsMoving) return;
+            if (!GameStats.IsMoving || !_isLevelActive) return;
 
             LevelTransform.position += new Vector3(-1 * Time.deltaTime * GameStats.Speed, 0, 0);
 
@@ -43,6 +44,7 @@ namespace Environment.Levels
 
         private void OnDestinationReached()
         {
+            _isLevelActive = false;
             LevelFinished?.Invoke();
         }
 
@@ -58,6 +60,10 @@ namespace Environment.Levels
                 }
             }
         }
-        
+
+        public void StartLevel()
+        {
+            _isLevelActive = true;
+        }
     }
 }

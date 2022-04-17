@@ -21,22 +21,21 @@ namespace Environment
             get => CollectableValues.GetTypeValue(collectableType);
             set
             {
-                
             }
         }
 
         public void Collect()
         {
-            // onCollect.Play();
+             onCollect.Play();
             _spriteRenderer.enabled = false;
         }
 
         public void ResetCollectable()
         {
-            // if (onCollect.isPlaying)
-            //     onCollect.Stop();
-            
-            _spriteRenderer.enabled = true;
+             if (onCollect.isPlaying)
+                 onCollect.Stop();
+             
+             _spriteRenderer.enabled = true;
         }
     }
 }

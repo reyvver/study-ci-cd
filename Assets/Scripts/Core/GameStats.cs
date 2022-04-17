@@ -6,6 +6,7 @@ namespace Core
     {
         public static float Speed = 5;
         public static bool IsMoving;
-        public static Camera cam;
+        public static bool IsGameStopped;
+        public static Camera Cam;
     }
 }

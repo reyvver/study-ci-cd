@@ -56,6 +56,7 @@ namespace Environment.Levels
         {
             if (_currentLevel == null) return;
             
+            _currentLevel.StartLevel();
             _currentLevel.LevelFinished += OnLevelStopped;
         }
 

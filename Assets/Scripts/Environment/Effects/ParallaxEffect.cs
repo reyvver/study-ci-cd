@@ -7,37 +7,40 @@ namespace Environment.Effects
     public class ParallaxEffect : MonoBehaviour, IMoving
     {
         [SerializeField] private float parallaxFactor;
-        
+
         public Transform ParallaxTransform => transform;
-        private Vector3 _objPosition;
+        public Vector3 objPosition;
+        
+        private float _sizeX;
 
         public void Init()
         {
-            _objPosition = ParallaxTransform.position;
+            objPosition = ParallaxTransform.position;
             gameObject.GetComponent<SpriteScaler>().Scale();
+            _sizeX = GetComponent<SpriteRenderer>().bounds.size.x;
         }
+        
         public void ResetAfterMovement()
         {
-            ParallaxTransform.position = _objPosition;
+            ParallaxTransform.position = objPosition;
         }
 
         public void SetAtRightPos()
         {
-            ParallaxTransform.position = new Vector3(ParallaxTransform.lossyScale.x, _objPosition.y, _objPosition.z);
-            _objPosition = ParallaxTransform.position;
+            ParallaxTransform.position = new Vector3(_sizeX, objPosition.y, objPosition.z);
+            objPosition = ParallaxTransform.position;
         }
 
         private void Update()
         {
-            if (!GameStats.IsMoving)
-                return;
-
-            var difference = ParallaxTransform.position.x + ParallaxTransform.lossyScale.x;
+            if (GameStats.IsGameStopped) return;
+            
+            var difference = ParallaxTransform.position.x + _sizeX;
             var moveValue = Vector3.left * Time.deltaTime * (GameStats.Speed + parallaxFactor);
             
             if (difference <= 0)
             {
-                ParallaxTransform.position = new Vector3(ParallaxTransform.lossyScale.x - Mathf.Abs(difference), _objPosition.y, _objPosition.z);
+                ParallaxTransform.position = new Vector3(_sizeX - Mathf.Abs(difference), objPosition.y, objPosition.z);
             }
             
             ParallaxTransform.Translate(moveValue);
