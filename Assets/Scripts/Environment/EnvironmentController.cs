@@ -12,6 +12,7 @@ namespace Environment
     {
         private LevelsManager _levelsManager;
         private ParallaxManager _parallaxEffect;
+        private SpeedController _speedController;
         
         public void Init()
         {
@@ -20,16 +21,20 @@ namespace Environment
             
             _parallaxEffect = GetComponent<ParallaxManager>();
             _parallaxEffect.Init();
+
+            _speedController = gameObject.AddComponent<SpeedController>();
         }
 
         public void OnGameStarted()
         {
             _levelsManager.StartFirstLevel();
+            _speedController.StartTrackTime();
         }
 
         public void OnGameFinished()
         {
             _levelsManager.StopMoving();
+            _speedController.ResetSpeed();
         }
 
         public void OnGameRestart()

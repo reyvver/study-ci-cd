@@ -6,10 +6,12 @@ namespace Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovement : MonoBehaviour
     {
+        [SerializeField] private float forceMultiplier = 30;
+
         private Rigidbody2D _rigidbody;
         private bool _isMotionApproved;
-        private const float ForceMultiplier = 50;
-        
+        private bool _addForce;
+
         public void Init()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
@@ -36,9 +38,22 @@ namespace Player
         {
             if (!_isMotionApproved) return;
 
-            if (InputManager.TouchHold())
+            if (InputManager.TouchBegin() || InputManager.TouchHold())
             {
-                _rigidbody.AddForce(Vector2.up * ForceMultiplier);
+                _addForce = true;
+            }
+
+            if (InputManager.TouchRelease())
+                _addForce = false;
+        }
+
+        private void FixedUpdate()
+        {
+            if (!_isMotionApproved) return;
+
+            if (_addForce)
+            {
+                _rigidbody.AddForce(Vector2.up * forceMultiplier);
             }
         }
     }

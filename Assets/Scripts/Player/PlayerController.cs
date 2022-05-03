@@ -12,6 +12,11 @@ namespace Player
             player.Init();   
         }
 
+        public void Fetch()
+        {
+            player.FetchPlayerData();
+        }
+
         public void OnGameStarted()
         {
             player.SetPlayerReady();

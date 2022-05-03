@@ -12,11 +12,25 @@ namespace Player
         private PlayerData _playerData;
         private PlayerMovement _playerMovement;
         private Vector3 _position;
+        private bool _distanceCheck;
+        private float _time = 0;
         
         public event Action PlayerCollisionDetected;
         public event Action<int> PlayerCountUpdated;
         public event Action<int> PlayerMaxCountUpdated;
 
+        private void Update()
+        {
+            if (!GameStats.IsMoving || !_distanceCheck) return;
+
+            _time += Time.deltaTime;
+            
+            if (_time >= 1) // each second
+            {
+                _time = 0;
+                UpdatePlayerCount(GameStats.CountEachTime);
+            }
+        }
         
         public void Init()
         {
@@ -29,12 +43,20 @@ namespace Player
 
         public void SetPlayerReady()
         {
+            _time = 0;
+            _distanceCheck = true;
             _playerMovement.ApproveMotion();
         }
 
         public void StopPlayer()
         {
+            _distanceCheck = false;
             _playerMovement.StopMotion();
+        }
+
+        public void FetchPlayerData()
+        {
+            UpdateMaxCount();
         }
 
         public void Restart()
@@ -48,7 +70,7 @@ namespace Player
             if (_playerData.CurrentCount > _playerData.MaxCount)
             {
                 _playerData.SetMaxCount(_playerData.CurrentCount);
-                PlayerMaxCountUpdated?.Invoke(_playerData.MaxCount);
+                UpdateMaxCount();
             }
 
             _playerData.ResetCurrentCount();
@@ -80,7 +102,6 @@ namespace Player
                 CollectableDetected(collectable);
             }
         }
-
         
         private void CollisionDetected()
         {
@@ -89,9 +110,18 @@ namespace Player
 
         private void CollectableDetected(ICollectable collectable)
         {
-            collectable.Collect();
-            _playerData.UpdateCurrentCount(collectable.Value);
+            UpdatePlayerCount(collectable.Value);
+        }
+
+        private void UpdatePlayerCount(int value)
+        {
+            _playerData.UpdateCurrentCount(value);
             PlayerCountUpdated?.Invoke(_playerData.CurrentCount);
+        }
+
+        private void UpdateMaxCount()
+        {
+            PlayerMaxCountUpdated?.Invoke(_playerData.MaxCount);
         }
     }
 }

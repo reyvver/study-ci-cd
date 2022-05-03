@@ -24,6 +24,8 @@ namespace Game
             
             InitAllControllers();
             SubscribeToEvents();
+            
+            SoundController.Controller.PlaySound(Sound.SoundType.Music);
         }
 
         ~GameController()
@@ -41,7 +43,8 @@ namespace Game
             _playerController.player.PlayerCollisionDetected += OnGameFinished;
             _playerController.player.PlayerCountUpdated += _uiController.playWindow.UpdateCount;
             _playerController.player.PlayerMaxCountUpdated += _uiController.startWindow.UpdateCount;
-
+            _playerController.Fetch();
+            
             _environmentController.Init();
         }
 
@@ -89,6 +92,7 @@ namespace Game
 
         private void OnGameFinished()
         {
+            SoundController.Controller.PlaySound(Sound.SoundType.Lose);
             GameStats.IsMoving = false;
             GameStats.IsGameStopped = true;
             GameFinished?.Invoke();

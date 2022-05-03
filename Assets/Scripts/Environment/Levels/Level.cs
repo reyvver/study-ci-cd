@@ -65,5 +65,10 @@ namespace Environment.Levels
         {
             _isLevelActive = true;
         }
+
+        public void StopLevel()
+        {
+            _isLevelActive = false;
+        }
     }
 }

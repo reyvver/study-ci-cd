@@ -1,4 +1,5 @@
 using System;
+using Core;
 using UnityEngine;
 
 namespace UI.Windows
@@ -18,6 +19,7 @@ namespace UI.Windows
         public void OnRestartButtonClick()
         {
             ButtonRestart?.Invoke();
+            SoundController.Controller.PlaySound(Sound.SoundType.Click);
         }
     }
 }

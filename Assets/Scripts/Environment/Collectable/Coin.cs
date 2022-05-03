@@ -8,7 +8,8 @@ namespace Environment
     {
         [SerializeField] private ParticleSystem onCollect;
         [SerializeField] private CollectableValues.CollectableType collectableType = CollectableValues.CollectableType.Regular;
-        
+        [SerializeField] private LayerMask player;
+
         private SpriteRenderer _spriteRenderer;
         
         private void Awake()
@@ -26,7 +27,8 @@ namespace Environment
 
         public void Collect()
         {
-             onCollect.Play();
+            SoundController.Controller.PlaySound(Sound.SoundType.Collect);
+            onCollect.Play();
             _spriteRenderer.enabled = false;
         }
 
@@ -36,6 +38,14 @@ namespace Environment
                  onCollect.Stop();
              
              _spriteRenderer.enabled = true;
+        }
+        
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if ((player & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
+            {
+                Collect();
+            }
         }
     }
 }

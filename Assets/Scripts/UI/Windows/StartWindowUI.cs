@@ -1,4 +1,5 @@
 using System;
+using Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,7 @@ namespace UI.Windows
         public void OnButtonStartClick()
         {
             ButtonStart?.Invoke();
+            SoundController.Controller.PlaySound(Sound.SoundType.Click);
         }
         
         public void UpdateCount(int count)

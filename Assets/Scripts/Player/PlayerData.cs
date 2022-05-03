@@ -7,23 +7,17 @@ namespace Player
         public int MaxCount { get; private set; }
         public int CurrentCount { get; private set; }
 
-        private const string MaxCountKey = "max_count";
-        private const string CurrentCountKey = "current_count";
+        private static string MaxCountKey = "max_count";
         
         public PlayerData()
         {
             LoadStartData();
         }
 
-        ~PlayerData()
-        {
-            SaveAll();
-        }
-        
         private void LoadStartData()
         {
             MaxCount = PlayerPrefs.GetInt(MaxCountKey, 0);
-            CurrentCount = PlayerPrefs.GetInt(CurrentCountKey, 0);
+            CurrentCount = 0;
         }
 
         private void SaveCount(string key, int count)
@@ -35,7 +29,6 @@ namespace Player
         private void SaveAll()
         {
             SaveCount(MaxCountKey, MaxCount);
-            SaveCount(CurrentCountKey, CurrentCount);
         }
 
         public void UpdateCurrentCount(int value)
@@ -50,6 +43,7 @@ namespace Player
 
         public void ResetCurrentCount()
         {
+            SaveAll();
             CurrentCount = 0;
         }
     }
