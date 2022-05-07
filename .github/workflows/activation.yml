@@ -10,7 +10,7 @@ jobs:
         id: getManualLicenseFile
         uses: game-ci/unity-request-activation-file@v2
         with: 
-          unityVersion: 2020.3.4f1 # Set your Unity version (defaults to 2019 LTS)
+          unityVersion: 2020.3.28f1 # Set your Unity version (defaults to 2019 LTS)
       
       # Upload artifact (Unity_v20XX.X.XXXX.alf)
       - name: Expose as artifact

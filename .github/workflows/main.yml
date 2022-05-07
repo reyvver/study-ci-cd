@@ -15,7 +15,7 @@ jobs:
 
     # Enter in project properties here
     env:
-      PROJECT_NAME: github-karts
+      PROJECT_NAME: study-ci-cd
 
     strategy:
       fail-fast: false
